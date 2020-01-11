@@ -28,7 +28,7 @@ t.ARMOR_TYPE_PLATE = "PLATE";
 t.ARMOR_TYPE_MAIL = "MAIL";
 t.ARMOR_TYPE_CLOTH = "CLOTH";
 t.ARMOR_TYPE_LEATHER = "LEATHER";
-local plate, mail, leather, cloth = t.ARMOR_TYPE_PLATE, t.ARMOR_TYPE_MAIL, t.ARMOR_TYPE_LEATHER, t.ARMOR_TYPE_CLOTH
+local PLATE, MAIL, LEATHER, CLOTH = t.ARMOR_TYPE_PLATE, t.ARMOR_TYPE_MAIL, t.ARMOR_TYPE_LEATHER, t.ARMOR_TYPE_CLOTH
 
 local CLASS_WARRIOR = 1;
 local CLASS_PALADIN = 2;
@@ -924,31 +924,31 @@ t.ITEM_DATA = {
 	},
 
 	[147212] = { -- Dauntless Bracers
-		[plate] = 147228, [mail] = 147227, [cloth] = 147225, [leather] = 147226
+		[PLATE] = 147228, [MAIL] = 147227, [CLOTH] = 147225, [LEATHER] = 147226
 	},
 	[147213] = { -- Dauntless Tunic
-		[plate] = 147231, [mail] = 147230, [cloth] = 147232, [leather] = 147229
+		[PLATE] = 147231, [MAIL] = 147230, [CLOTH] = 147232, [LEATHER] = 147229
 	},
 	[147214] = { -- Dauntless Treads
-		[plate] = 147236, [mail] = 147235, [cloth] = 147233, [leather] = 147234
+		[PLATE] = 147236, [MAIL] = 147235, [CLOTH] = 147233, [LEATHER] = 147234
 	},
 	[147215] = { -- Dauntless Gauntlets
-		[plate] = 147240, [mail] = 147239, [cloth] = 147237, [leather] = 147238
+		[PLATE] = 147240, [MAIL] = 147239, [CLOTH] = 147237, [LEATHER] = 147238
 	},
 	[147216] = { -- Dauntless Hood
-		[plate] = 147244, [mail] = 147243, [cloth] = 147241, [leather] = 147242
+		[PLATE] = 147244, [MAIL] = 147243, [CLOTH] = 147241, [LEATHER] = 147242
 	},
 	[147217] = { -- Dauntless Leggings
-		[plate] = 147248, [mail] = 147247, [cloth] = 147245, [leather] = 147246
+		[PLATE] = 147248, [MAIL] = 147247, [CLOTH] = 147245, [LEATHER] = 147246
 	},
 	[147218] = { -- Dauntless Spaulders
-		[plate] = 147252, [mail] = 147251, [cloth] = 147249, [leather] = 147250
+		[PLATE] = 147252, [MAIL] = 147251, [CLOTH] = 147249, [LEATHER] = 147250
 	},
 	[147219] = { -- Dauntless Girdle
-		[plate] = 147256, [mail] = 147255, [cloth] = 147253, [leather] = 147254
+		[PLATE] = 147256, [MAIL] = 147255, [CLOTH] = 147253, [LEATHER] = 147254
 	},
 	[147222] = { -- Dauntless Cloak
-		[plate] = 147269, [mail] = 147269, [cloth] = 147269, [leather] = 147269
+		[PLATE] = 147269, [MAIL] = 147269, [CLOTH] = 147269, [LEATHER] = 147269
 	},
 
 	-- Tier 21
