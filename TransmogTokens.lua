@@ -279,6 +279,7 @@ TransmogTokens.updateTierFrame = function(selectedID)
 
 		local interest = {};
 		local itemData = t.SORTED_DATA[tokenID];
+		if type(itemData) ~= "table" then itemData = {itemData} end
 
 		local hasInterest = false;
 
