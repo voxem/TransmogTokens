@@ -400,8 +400,18 @@ TransmogTokens.pushDataNode = function(target, targetKey, data, dataKey)
 	end
 end
 
+local function tcopy(inTbl)
+	if type(inTbl) ~= 'table' then return inTbl end
+	local outTbl = {}
+	for k, v in next, inTbl do
+		outTbl[tcopy(k)] = tcopy(v)
+	end
+	return outTbl
+end
+
 TransmogTokens.sortData = function(pool, classIndex)
 	local itemType = t.CLASS_ITEM_TYPE[classIndex];
+	local links = {}
 	for tokenID, data in pairs(pool) do
 		t.pushDataNode(t.SPEC_CLASS_TOKENS, tokenID, data, "DEPENDANT_WARNING");
 		t.pushDataNode(t.NOTES, tokenID, data, "NOTE");
@@ -409,18 +419,18 @@ TransmogTokens.sortData = function(pool, classIndex)
 		t.pushDataNode(t.BONUS_LOOKUP, tokenID, data, "BONUS");
 		t.pushDataNode(t.SORTED_DATA, tokenID, data, classIndex);
 		t.pushDataNode(t.SORTED_DATA, tokenID, data, itemType);
-
+		
 		local dupBonus = data["DUPLICATE_BONUS"];
 		if dupBonus then
 			for bonusToken, bonusID in pairs(dupBonus) do
 				-- Share data with this token.
 				t.SORTED_DATA[bonusToken] = t.SORTED_DATA[tokenID];
-
+				
 				-- Unlike linking, we need to enforce a static bonus.
 				t.BONUS_LOOKUP[bonusToken] = bonusID;
 			end
 		end
-
+		
 		if data["OBTAIN"] and data[classIndex] then
 			local node = data["OBTAIN"];
 			local setIndex = node[1];
@@ -434,32 +444,35 @@ TransmogTokens.sortData = function(pool, classIndex)
 
 			set[tokenID] = obtainIndex;
 		end
-
+		
 		if data["LINK"] then
-			for linkIndex, linkValue in pairs(data["LINK"]) do
-				local node = t.SORTED_DATA[linkValue];
-				if node then
-					if not t.SORTED_DATA[tokenID] then
-						t.SORTED_DATA[tokenID] = node;
+			links[tokenID] = data["LINK"]
+		end
+	end
+	
+	for tokenId, linkData in pairs(links) do
+		for _, linkValue in ipairs(linkData) do
+			local node = t.SORTED_DATA[linkValue]
+			if node then
+				if t.SORTED_DATA[tokenId] then
+					local sorted = t.SORTED_DATA[tokenId]
+					
+					if type(sorted) == "number" then
+						sorted = {sorted}
+						t.SORTED_DATA[tokenId] = sorted
+					end
+					
+					if type(node) == "number" then
+						-- Linked data is just a single number, insert.
+						tinsert(sorted, node)
 					else
-						local sorted = t.SORTED_DATA[tokenID];
-
-						if type(sorted) == "number" then
-							sorted = {sorted};
-							t.SORTED_DATA[tokenID] = sorted;
-						end
-
-						local pull = node;
-						if type(pull) == "number" then
-							-- Linked data is just a single number, insert.
-							table.insert(sorted, pull);
-						else
-							-- Linked data is a table, loop.
-							for nodeKey, nodeValue in pairs(pull) do
-								table.insert(sorted, nodeValue);
-							end
+						-- Linked data is a table, loop.
+						for _, nodeValue in ipairs(node) do
+							tinsert(sorted, nodeValue)
 						end
 					end
+				else
+					t.SORTED_DATA[tokenId] = tcopy(node)
 				end
 			end
 		end
